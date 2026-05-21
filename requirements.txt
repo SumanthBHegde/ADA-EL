@@ -1,0 +1,23 @@
+# =============================================================
+#  requirements.txt — Sudoku Solver Project
+# =============================================================
+#
+#  This project uses ONLY Python standard library modules:
+#
+#    tkinter   — Built-in GUI framework (ships with Python 3)
+#    time      — Performance timing
+#    copy      — Deep copy of grid structures
+#    random    — Random puzzle selection
+#    sys, os   — Path management
+#
+#  NO third-party packages are required.
+#  Simply run:   python main.py
+#
+#  If tkinter is missing (some minimal Linux installs):
+#    Ubuntu / Debian : sudo apt-get install python3-tk
+#    Fedora          : sudo dnf install python3-tkinter
+#    macOS           : Install Python from python.org (includes Tk)
+#    Windows         : Tkinter is always bundled with Python
+# =============================================================
+
+# No third-party dependencies
