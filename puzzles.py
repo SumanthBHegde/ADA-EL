@@ -113,6 +113,39 @@ PUZZLES = {
         [0, 0, 8, 5, 0, 0, 0, 1, 0],
         [0, 9, 0, 0, 0, 0, 4, 0, 0],
     ],
+
+    # --------------------------------------------------------
+    #  BROKEN / UNSOLVABLE EXAMPLES (intentionally invalid)
+    # These puzzles contain contradictions or impossible givens
+    # and are included to demonstrate solver failure handling.
+    # --------------------------------------------------------
+    "Contradictory Row": [
+        # Two 5s in the first row (immediate contradiction)
+        [5, 3, 5, 0, 7, 0, 0, 0, 0],
+        [6, 0, 0, 1, 9, 5, 0, 0, 0],
+        [0, 9, 8, 0, 0, 0, 0, 6, 0],
+        [8, 0, 0, 0, 6, 0, 0, 0, 3],
+        [4, 0, 0, 8, 0, 3, 0, 0, 1],
+        [7, 0, 0, 0, 2, 0, 0, 0, 6],
+        [0, 6, 0, 0, 0, 0, 2, 8, 0],
+        [0, 0, 0, 4, 1, 9, 0, 0, 5],
+        [0, 0, 0, 0, 8, 0, 0, 7, 9],
+    ],
+
+    "Contradictory Box": [
+        # Two 1s inside the top-left 3x3 box (contradiction)
+        [1, 2, 3, 0, 7, 0, 0, 0, 0],
+        [4, 1, 6, 1, 9, 5, 0, 0, 0],
+        [7, 9, 8, 0, 0, 0, 0, 6, 0],
+        [8, 0, 0, 0, 6, 0, 0, 0, 3],
+        [4, 0, 0, 8, 0, 3, 0, 0, 1],
+        [7, 0, 0, 0, 2, 0, 0, 0, 6],
+        [0, 6, 0, 0, 0, 0, 2, 8, 0],
+        [0, 0, 0, 4, 1, 9, 0, 0, 5],
+        [0, 0, 0, 0, 8, 0, 0, 7, 9],
+    ],
+
+    
 }
 
 # Ordered list of puzzle names for random selection
@@ -124,6 +157,7 @@ DIFFICULTY_GROUPS = {
     "Medium" : ["Medium 1", "Medium 2"],
     "Hard"   : ["Hard 1", "Hard 2"],
     "Expert" : ["Expert"],
+    "Broken" : ["Contradictory Row", "Contradictory Box"],
 }
 
 

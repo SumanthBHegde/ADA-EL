@@ -33,7 +33,7 @@ def main():
     root.geometry(f"1000x740+{x}+{y}")
 
     # Create the application
-    app = SudokuApp(root)   # noqa: F841  (kept alive by mainloop)
+    app = SudokuApp(root) 
 
     # Start Tkinter event loop
     root.mainloop()

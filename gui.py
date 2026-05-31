@@ -74,6 +74,7 @@ C = {
     "btn_medium"   : "#a855f7",
     "btn_hard"     : "#db2777",
     "btn_expert"   : "#dc2626",
+    "btn_broken"   : "#7f1d1d",
     "btn_clear"    : "#6b7280",
     "btn_stop"     : "#ea580c",
     "btn_fg"       : "#ffffff",
@@ -379,7 +380,8 @@ class SudokuApp:
         for diff, color in [("Easy",   C["btn_easy"]),
                              ("Medium", C["btn_medium"]),
                              ("Hard",   C["btn_hard"]),
-                             ("Expert", C["btn_expert"])]:
+                             ("Expert", C["btn_expert"]),
+                             ("Broken", C["btn_broken"])]:
             self._btn(row2, diff, color,
                       lambda d=diff: self.load_puzzle_by_difficulty(d))
 
