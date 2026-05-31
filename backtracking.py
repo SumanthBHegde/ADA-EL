@@ -1,27 +1,4 @@
 #!/usr/bin/env python3
-"""
-=============================================================
-  BACKTRACKING ALGORITHM — Sudoku Solver
-=============================================================
-Algorithm Type  : Recursive Depth-First Search (DFS)
-Time Complexity : O(9^m)  where m = number of empty cells
-Space Complexity: O(m)    for the recursion call stack
-
-HOW IT WORKS:
-  1. Scan the grid left-to-right, top-to-bottom.
-  2. Find the first empty cell (value = 0).
-  3. Try placing digits 1 through 9 in that cell.
-  4. For each digit, check validity against:
-       - All cells in the same row
-       - All cells in the same column
-       - All cells in the same 3×3 box
-  5. If valid, place the digit and recurse.
-  6. If the recursion eventually fails (no valid digit
-     for a later cell), BACKTRACK: remove the digit and
-     try the next one.
-  7. Repeat until the grid is completely filled.
-=============================================================
-"""
 
 import time
 import copy
@@ -35,21 +12,12 @@ class BacktrackingSolver:
         self.backtracks: int   = 0
         self.solving_time: float = 0.0
 
-    # ----------------------------------------------------------
+    
     #  Public Interface
-    # ----------------------------------------------------------
+    
 
     def solve_puzzle(self, grid: list, record_steps: bool = False):
-        """
-        Solve a Sudoku puzzle and return the result.
-
-        Args:
-            grid         : 9×9 list-of-lists; 0 represents empty cells.
-            record_steps : If True, fill self.steps for animation.
-
-        Returns:
-            (solved_grid, success) where success is True/False.
-        """
+       
         self._reset_stats()
         grid_copy = copy.deepcopy(grid)
 
@@ -59,18 +27,12 @@ class BacktrackingSolver:
 
         return grid_copy, success
 
-    # ----------------------------------------------------------
+    
     #  Core Algorithm
-    # ----------------------------------------------------------
+    
 
     def _solve(self, grid: list, record_steps: bool) -> bool:
-        """
-        Recursive backtracking function.
-
-        Returns True when a complete, valid solution is found.
-        Returns False when no digit 1–9 fits in the current empty
-        cell, signalling the parent call to backtrack.
-        """
+       
         # BASE CASE: no empty cell means puzzle is completely solved
         empty_cell = self._find_empty_cell(grid)
         if empty_cell is None:
@@ -100,15 +62,12 @@ class BacktrackingSolver:
 
         return False   # No digit worked → trigger backtrack in parent
 
-    # ----------------------------------------------------------
+    
     #  Helper Methods
-    # ----------------------------------------------------------
+    
 
     def _find_empty_cell(self, grid: list):
-        """
-        Scan the grid left-to-right, top-to-bottom.
-        Returns (row, col) of the first empty cell, or None.
-        """
+        
         for row in range(9):
             for col in range(9):
                 if grid[row][col] == 0:

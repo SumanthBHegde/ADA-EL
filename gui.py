@@ -1,29 +1,5 @@
 #!/usr/bin/env python3
-"""
-=============================================================
-  SUDOKU SOLVER — GUI Application
-  Using Backtracking and Branch & Bound Algorithms
-=============================================================
-Framework : Python 3 + Tkinter (built-in, no install needed)
-Pattern   : Object-Oriented (class SudokuApp)
 
-LAYOUT:
-  ┌──────────────────────────────────────────────────┐
-  │               TITLE BAR                          │
-  ├────────────────────────┬─────────────────────────┤
-  │                        │  STATISTICS PANEL        │
-  │    9×9 SUDOKU GRID     │  ─────────────────────   │
-  │                        │  BT: time / nodes / BT   │
-  │                        │  BB: time / nodes / pruned│
-  ├────────────────────────┴─────────────────────────┤
-  │  [BT Solve] [BB Solve] [Viz BT] [Viz BB]         │
-  │  [Easy] [Medium] [Hard] [Expert] [Clear] [Stop]  │
-  │  Animation Speed: [●───────────]                 │
-  ├──────────────────────────────────────────────────┤
-  │  STATUS BAR                                      │
-  └──────────────────────────────────────────────────┘
-=============================================================
-"""
 
 import tkinter as tk
 from tkinter import messagebox, font as tkfont
@@ -35,9 +11,9 @@ from branch_and_bound import BranchBoundSolver
 from puzzles        import PUZZLES, PUZZLE_NAMES, DIFFICULTY_GROUPS, \
                            get_random_puzzle, count_empty, count_givens
 
-# ==============================================================
+# ====
 #  COLOR PALETTE  (change values here to re-theme the whole app)
-# ==============================================================
+# ====
 C = {
     # Window / Frame backgrounds
     "bg_main"      : "#f0f4f8",
@@ -74,7 +50,6 @@ C = {
     "btn_medium"   : "#a855f7",
     "btn_hard"     : "#db2777",
     "btn_expert"   : "#dc2626",
-    "btn_broken"   : "#7f1d1d",
     "btn_clear"    : "#6b7280",
     "btn_stop"     : "#ea580c",
     "btn_fg"       : "#ffffff",
@@ -112,22 +87,12 @@ CELL_W = 52     # pixel width  of each cell
 CELL_H = 52     # pixel height of each cell
 
 
-# ==============================================================
+# ====
 #  MAIN APPLICATION CLASS
-# ==============================================================
+# ====
 
 class SudokuApp:
-    """
-    Full Tkinter Sudoku solver application.
-
-    Responsibilities:
-        • Build and manage the UI (grid, buttons, stats, status bar)
-        • Accept user input into the 9×9 grid
-        • Delegate solving to BacktrackingSolver / BranchBoundSolver
-        • Animate step-by-step solving using Tkinter's .after() scheduler
-        • Display performance statistics after each solve
-    """
-
+    
     def __init__(self, root: tk.Tk):
         self.root = root
         self.root.title("Sudoku Solver — Backtracking & Branch-and-Bound")
@@ -165,9 +130,9 @@ class SudokuApp:
         # ---- Load default puzzle ----
         self.load_puzzle_by_difficulty("Medium")
 
-    # ==========================================================
+    # 
     #  UI CONSTRUCTION
-    # ==========================================================
+    # 
 
     def _build_title(self):
         """Top title bar."""
@@ -380,8 +345,7 @@ class SudokuApp:
         for diff, color in [("Easy",   C["btn_easy"]),
                              ("Medium", C["btn_medium"]),
                              ("Hard",   C["btn_hard"]),
-                             ("Expert", C["btn_expert"]),
-                             ("Broken", C["btn_broken"])]:
+                             ("Expert", C["btn_expert"])]:
             self._btn(row2, diff, color,
                       lambda d=diff: self.load_puzzle_by_difficulty(d))
 
@@ -465,15 +429,12 @@ class SudokuApp:
                  padx=12
                  ).pack(side="right")
 
-    # ==========================================================
+    # 
     #  GRID INTERACTION
-    # ==========================================================
+    # 
 
     def _on_key(self, r: int, c: int):
-        """
-        Called on every key-release inside a cell.
-        Validates that the entry contains a single digit 1-9 (or is empty).
-        """
+        
         val = self.cell_vars[r][c].get()
 
         # Allow only last character if user types fast
@@ -557,9 +518,9 @@ class SudokuApp:
                            disabledbackground=bg,
                            disabledforeground=fg)
 
-    # ==========================================================
+    # 
     #  LOAD / CLEAR
-    # ==========================================================
+    # 
 
     def load_puzzle_by_difficulty(self, difficulty: str):
         """Load a random puzzle of the specified difficulty."""
@@ -579,9 +540,9 @@ class SudokuApp:
         self._reset_stats_display()
         self.set_status("🗑  Grid cleared.  Enter your own puzzle or load a sample.")
 
-    # ==========================================================
+    # 
     #  SOLVE (instant, no animation)
-    # ==========================================================
+    # 
 
     def solve_bt(self):
         """Solve the current puzzle with Backtracking (instant)."""
@@ -653,9 +614,9 @@ class SudokuApp:
                 if not self.is_given[r][c]:
                     self._set_cell_color(r, c, bg, fg, solved[r][c])
 
-    # ==========================================================
+    # 
     #  VISUALIZE (step-by-step animation)
-    # ==========================================================
+    # 
 
     def visualize_bt(self):
         """Collect BT steps then animate them."""
@@ -666,11 +627,7 @@ class SudokuApp:
         self._start_visualization("BB")
 
     def _start_visualization(self, mode: str):
-        """
-        1. Read current grid.
-        2. Run solver in step-recording mode (fast, no GUI update).
-        3. If solvable, reset grid to original and start animation.
-        """
+        
         if self.animating:
             self.stop_animation()
             return
@@ -719,10 +676,7 @@ class SudokuApp:
         self._animate_next()
 
     def _animate_next(self):
-        """
-        Called repeatedly via root.after() to advance the animation
-        by one step.  Stops automatically when all steps are consumed.
-        """
+     
         if not self.animating:
             return
 
@@ -792,9 +746,9 @@ class SudokuApp:
         self.anim_progress_var.set("")
         self.set_status("⏹  Animation stopped.")
 
-    # ==========================================================
+    # 
     #  STATISTICS DISPLAY
-    # ==========================================================
+    # 
 
     def _update_stats_display(self, mode: str):
         """Push latest solver stats into the stats-panel labels."""

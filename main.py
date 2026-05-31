@@ -32,10 +32,8 @@ def main():
     y = (screen_h - 740) // 2
     root.geometry(f"1000x740+{x}+{y}")
 
-    # Create the application
     app = SudokuApp(root) 
 
-    # Start Tkinter event loop
     root.mainloop()
 
 
