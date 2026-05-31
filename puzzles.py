@@ -142,16 +142,7 @@ DIFFICULTY_GROUPS = {
 
 
 def get_random_puzzle(difficulty: str = None):
-    """
-    Return a (name, grid) tuple for a random puzzle.
 
-    Args:
-        difficulty : One of "Easy", "Medium", "Hard", "Expert",
-                     or None for a completely random pick.
-
-    Returns:
-        (puzzle_name, puzzle_grid) tuple.
-    """
     import random
     import copy
 

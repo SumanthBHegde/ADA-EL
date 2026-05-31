@@ -12,12 +12,7 @@ from gui import SudokuApp
 
 
 def main():
-    """
-    Application entry point.
-
-    Creates the root Tkinter window, instantiates SudokuApp,
-    and starts the event loop.
-    """
+    
     root = tk.Tk()
 
     # Allow the window to grow if the display requires it
