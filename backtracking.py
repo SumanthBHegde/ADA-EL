@@ -13,7 +13,6 @@ class BacktrackingSolver:
         self.solving_time: float = 0.0
 
     
-    #  Public Interface
     
 
     def solve_puzzle(self, grid: list, record_steps: bool = False):
@@ -28,7 +27,6 @@ class BacktrackingSolver:
         return grid_copy, success
 
     
-    #  Core Algorithm
     
 
     def _solve(self, grid: list, record_steps: bool) -> bool:
@@ -36,11 +34,10 @@ class BacktrackingSolver:
         # BASE CASE: no empty cell means puzzle is completely solved
         empty_cell = self._find_empty_cell(grid)
         if empty_cell is None:
-            return True                          # ✔ Solution found
+            return True                        
 
         row, col = empty_cell
 
-        # RECURSIVE CASE: try every digit from 1 to 9
         for num in range(1, 10):
             self.nodes_explored += 1
 
@@ -50,11 +47,9 @@ class BacktrackingSolver:
                 if record_steps:
                     self.steps.append((row, col, num, 'place'))
 
-                # ------ RECURSE ------
                 if self._solve(grid, record_steps):
-                    return True                  # ✔ Propagated success
+                    return True                 
 
-                # ------ BACKTRACK ------
                 grid[row][col] = 0
                 self.backtracks += 1
                 if record_steps:
@@ -63,7 +58,7 @@ class BacktrackingSolver:
         return False   # No digit worked → trigger backtrack in parent
 
     
-    #  Helper Methods
+   
     
 
     def _find_empty_cell(self, grid: list):
@@ -96,14 +91,12 @@ class BacktrackingSolver:
         return True   # All three constraints satisfied
 
     def _reset_stats(self):
-        """Clear counters before a fresh solve."""
         self.steps          = []
         self.nodes_explored = 0
         self.backtracks     = 0
         self.solving_time   = 0.0
 
     def get_stats(self) -> dict:
-        """Return a summary dictionary for display in the GUI."""
         return {
             "Algorithm"       : "Backtracking",
             "Time (s)"        : f"{self.solving_time:.6f}",
