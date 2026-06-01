@@ -5,14 +5,7 @@ import copy
 
 
 class BranchBoundSolver:
-    """
-    Attributes:
-        steps           (list)  : (row, col, val, type) for visualization.
-        nodes_explored  (int)   : Number of cell-assignment attempts.
-        pruned_branches (int)   : Branches eliminated by forward checking.
-        backtracks      (int)   : Number of backtracks performed.
-        solving_time    (float) : Wall-clock time in seconds.
-    """
+  
 
     def __init__(self):
         self.steps: list            = []
@@ -22,7 +15,6 @@ class BranchBoundSolver:
         self.solving_time: float    = 0.0
 
     
-    #  Public Interface
     
 
     def solve_puzzle(self, grid: list, record_steps: bool = False):
@@ -36,7 +28,6 @@ class BranchBoundSolver:
 
         return grid_copy, success
 
-    #  Core Algorithm
 
     def _solve(self, grid: list, record_steps: bool) -> bool:
        
@@ -47,7 +38,7 @@ class BranchBoundSolver:
         if cell is None:
             return True
 
-        # BASE CASE B: A cell has zero valid options → dead end (BOUND)
+        # BASE CASE B: A cell has zero valid options → dead end 
         if len(domain) == 0:
             self.pruned_branches += 1
             return False
@@ -55,20 +46,16 @@ class BranchBoundSolver:
         row, col = cell
         self.nodes_explored += 1
 
-        # Try each value in the domain (sorted for deterministic output)
         for num in sorted(domain):
             # --- PLACE ---
             grid[row][col] = num
             if record_steps:
                 self.steps.append((row, col, num, 'place'))
 
-            # After this assignment, does every other empty cell
             if self._forward_check(grid):
-                # Branch looks viable → recurse deeper
                 if self._solve(grid, record_steps):
-                    return True   #  Solution propagated up
+                    return True   
             else:
-                # Branch is provably dead → prune immediately
                 self.pruned_branches += 1
 
             # --- BACKTRACK ---
@@ -80,9 +67,6 @@ class BranchBoundSolver:
         return False   # All values exhausted for this cell
 
     
-    #  MRV Heuristic
-    
-
     def _find_mrv_cell(self, grid: list):
         min_size = 10        # More than the maximum possible (9)
         best_cell = None
@@ -102,16 +86,12 @@ class BranchBoundSolver:
                         best_cell  = (row, col)
                         best_domain = domain
 
-                        # Early exit: a cell with exactly 1 valid value
-                        # is already the most constrained possible
                         if min_size == 1:
                             return best_cell, best_domain
 
         return best_cell, best_domain   # May be (None, None) if grid full
 
-    
-    #  Domain Computation
-    
+        
 
     def _get_domain(self, grid: list, row: int, col: int) -> set:
         
@@ -132,8 +112,6 @@ class BranchBoundSolver:
 
         return domain
 
-    
-    #  Forward Checking (Bounding Function)
     
 
     def _forward_check(self, grid: list) -> bool:

@@ -15,7 +15,6 @@ def main():
     
     root = tk.Tk()
 
-    # Allow the window to grow if the display requires it
     root.resizable(True, True)
     root.minsize(980, 720)
 
